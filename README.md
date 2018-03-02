@@ -5,3 +5,5 @@
 * issu-downloader.sh
 * join-pdf.sh
 * photo-manager.sh
+* level0.cmd
+Some command lines while developing QP of Starcounter
