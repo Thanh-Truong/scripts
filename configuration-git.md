@@ -6,6 +6,7 @@ apt-get install git
 
 #### Step 2: Configuring Git
 git config --global user.name "John Appleseed"
+
 git config --global user.email "email@example.com"
 
 #### Step 3: SSH and Git
