@@ -19,6 +19,9 @@ ls -al ~/.ssh
 
 - ssh-keygen -t rsa -b 4096 -C "email@example.com"
 
+NOTICE: If you use `sudo` to generate SSH key, then you cannot use `git` command without `sudo`.
+Unless, you have to use `sudo` when working with `git`, try to avoid it
+
 * Enable SSH-agen
 
 eval "$(ssh-agent -s)"
