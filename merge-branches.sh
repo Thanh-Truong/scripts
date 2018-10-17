@@ -2,7 +2,7 @@
 Merge all branches using Octupus merge mode
 '
 #!/bin/sh
-function merge_branches() { 
+merge_branches() { 
     LIST_BRANCHES=''
     for branch in `git for-each-ref --sort='-committerdate' --format='%(refname)' refs/remotes/origin`;do
         LIST_BRANCHES="$LIST_BRANCHES  $branch"
