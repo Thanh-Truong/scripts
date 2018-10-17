@@ -11,7 +11,7 @@ merge_branches() {
     echo $LIST_BRANCHES
 
     # Octupus merge = kinda of cool :D
-    git merge $LIST_BRANCHES -m "dummy merge commit"
+    git merge $LIST_BRANCHES -m "Merge all branches in a Octupus fashion"
 }
 
 abort()
