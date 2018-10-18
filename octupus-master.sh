@@ -11,7 +11,7 @@ make_temp_folder() {
 setup_git() {
     echo "Setting Git.................."
     eval "$(ssh-agent -s)"
-    ssh-add /etc/git-secret/ssh
+    ssh-add /etc/git-secret/ssh    
 }
 
 clone_repo() {
@@ -23,7 +23,9 @@ pull_octupus() {
     echo "Pulling Octupus ..............."
     rm -rf scripts
     clone_repo "git@github.com:Thanh-Truong/scripts.git" "--no-checkout"
+    cd scripts
     git fetch && git checkout origin octupus-merge.sh
+    cd ..
 }
 
 pull_repo() {
@@ -31,7 +33,12 @@ pull_repo() {
     rm -rf data-airflow-dags
     clone_repo "git@github.com:TV4/data-airflow-dags.git" ""    
     mv scripts/octupus-merge.sh data-airflow-dags/octupus-merge.sh
+}
+
+octupus_merge() {
     cd data-airflow-dags
+    git config user.email "octupus@bonnierbroadcasting.com"
+    git config user.name "Octupus"
     chmod +x octupus-merge.sh
     ./octupus-merge.sh
     cd ..
@@ -53,12 +60,10 @@ clean_up(){
 trap clean_up EXIT
 
 #make_temp_folder
+rm -rf scripts
+rm -rf data-airflow-dags
 setup_git
 pull_octupus
 pull_repo
-
-#mv scripts/octupus-merge.sh $AIRFLOW__CORE__DAGS_FOLDER/octupus-merge.sh
-#chmod +x $AIRFLOW__CORE__DAGS_FOLDER/octupus-merge.sh
-#cd $AIRFLOW__CORE__DAGS_FOLDER
-#ssh-agent sh -c "$ADD_SECRET; ./octupus-merge.sh"
+octupus_merge
 exit 0
