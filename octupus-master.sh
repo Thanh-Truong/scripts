@@ -5,40 +5,44 @@ Merge all branches using Octupus merge mode
 make_temp_folder() {
     TMPWORKDIR=$(basename $(mktemp -d -p /tmp))
     cd /tmp/$TMPWORKDIR
+    echo "Temp directory:" $TMPWORKDIR
 }
 
 setup_git() {
-    ADD_SECRET='ssh-add /etc/git-secret/ssh'
-    GIT_CLONE='git clone --branch master $1 $2'
-    echo "Setting Git..." $GIT_CLONE
+    echo "Setting Git.................."
+    eval "$(ssh-agent -s)"
+    ssh-add /etc/git-secret/ssh
+}
+
+clone_repo() {
+    echo "Cloning repo $1 $2 ..........."
+    git clone --branch master $1 $2  
 }
 
 pull_octupus() {
-    echo "Pulling Octupus .... done"
-    setup_git "git@github.com:Thanh-Truong/scripts.git" "--no-checkout"
-    GIT_CHECKOUT_MERGE_SCRIPT='git fetch; git checkout origin octupus-merge.sh'
-    ssh-agent sh -c "$ADD_SECRET; rm -rf scripts; $GIT_CLONE"
-    ssh-agent sh -c "$ADD_SECRET; cd scripts; $GIT_CHECKOUT_MERGE_SCRIPT; cd .."
-    echo "Pulling Octupus .... done"
+    echo "Pulling Octupus ..............."
+    rm -rf scripts
+    clone_repo "git@github.com:Thanh-Truong/scripts.git" "--no-checkout"
+    git fetch && git checkout origin octupus-merge.sh
 }
 
 pull_repo() {
-    echo "Pulling Repo .... done"
-    setup_git "git@github.com:TV4/data-airflow-dags.git" ""
-    ssh-agent sh -c "$ADD_SECRET; rm -rf data-airflow-dags; $GIT_CLONE"
+    echo "Pulling Repo ....................."
+    rm -rf data-airflow-dags
+    clone_repo "git@github.com:TV4/data-airflow-dags.git" ""    
     mv scripts/octupus-merge.sh data-airflow-dags/octupus-merge.sh
     cd data-airflow-dags
     chmod +x octupus-merge.sh
-    ssh-agent sh -c "$ADD_SECRET; ./octupus-merge.sh"
+    ./octupus-merge.sh
     cd ..
-    echo "Pulling Repo .... done"
 }
 
 # Clean up
 clean_up(){
-    echo "Cleaning /tmp/$TMPWORKDIR"
+    #echo "Cleaning /tmp/$TMPWORKDIR"    
     #cd /tmp
     #rm -rf $TMPWORKDIR
+    echo "Cleaning....."
     unset TMPWORKDIR
     unset ADD_SECRET
     unset GIT_CLONE
@@ -48,7 +52,8 @@ clean_up(){
 #Removing rubbish upon exit
 trap clean_up EXIT
 
-make_temp_folder
+#make_temp_folder
+setup_git
 pull_octupus
 pull_repo
 
