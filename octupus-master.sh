@@ -58,6 +58,7 @@ clean_up(){
     #cd /tmp
     #rm -rf $TMPWORKDIR
     echo "Cleaning....."
+    rm -rf $OCTUPUS_FOLDER
     unset TMPWORKDIR
     unset ADD_SECRET
     unset GIT_CLONE
