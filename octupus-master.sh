@@ -7,7 +7,7 @@ SSH_PRIVATE_KEY=/etc/git-secret/ssh
 OCTUPUS_FOLDER=scripts
 OCTUPUS_GIT=git@github.com:Thanh-Truong/scripts.git
 OCTUPUS_SH=octupus-merge.sh
-REPO_FOLDER=data-airflow-dags
+REPO_FOLDER=octupus-dags
 
 
 make_temp_folder() {
