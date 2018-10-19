@@ -79,3 +79,8 @@ pull_octupus
 pull_repo
 octupus_merge
 exit 0
+
+#ln -snf /tmp/octupus/data-airflow-dags/dev/* /airflow/dags/data/dev/
+#ln -sn /tmp/octupus/data-airflow-dags/dev/* /airflow/dags/rev-1544cf91240a254d7047879972a3cc835f4b207c/dev/
+#ln -sn /tmp/octupus/octupus-dags/dev/* /airflow/dags/rev-1544cf91240a254d7047879972a3cc835f4b207c/dev/
+#ln -sn /airflow/dags/octupus-dags/dev/* /airflow/dags/rev-1544cf91240a254d7047879972a3cc835f4b207c/dev/
