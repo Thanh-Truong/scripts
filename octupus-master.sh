@@ -8,6 +8,7 @@ OCTUPUS_FOLDER=scripts
 OCTUPUS_GIT=git@github.com:Thanh-Truong/scripts.git
 OCTUPUS_SH=octupus-merge.sh
 REPO_FOLDER=octupus-dags
+REPO_GIT=git@github.com:TV4/data-airflow-dags.git
 
 
 make_temp_folder() {
@@ -39,7 +40,7 @@ pull_octupus() {
 pull_repo() {
     echo "Pulling Repo ....................."
     rm -rf $REPO_FOLDER
-    clone_repo "git@github.com:TV4/data-airflow-dags.git" ""    
+    clone_repo "$REPO_GIT" "$REPO_FOLDER"    
     mv $OCTUPUS_FOLDER/$OCTUPUS_SH $REPO_FOLDER/$OCTUPUS_SH
 }
 
