@@ -14,6 +14,7 @@ clean_up(){
 trap clean_up EXIT
 AIRFLOW_POD=$(kubectl get pods | awk '{print $1}' | grep  "airflow*")
 kubectl cp ./octupus-master.sh $AIRFLOW_POD:/airflow/dags/ -c airflow-scheduler
+kubectl cp ./octupus.config.sh $AIRFLOW_POD:/airflow/dags/ -c airflow-scheduler
 kubectl exec $AIRFLOW_POD -c airflow-scheduler -- bash -c "cd /airflow/dags && mv octupus-master.sh octupus.sh && chmod +x octupus.sh"
 #kubectl exec $AIRFLOW_POD -c airflow-scheduler -- bash -c "cd /airflow/dags && ./octupus.sh && rm -rf octupus.sh"
 exit 0
