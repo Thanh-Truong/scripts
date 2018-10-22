@@ -35,6 +35,7 @@ pull_octupus() {
     clone_repo "$OCTUPUS_GIT" "--no-checkout"
     cd $OCTUPUS_FOLDER
     git fetch && git checkout origin $OCTUPUS_SH
+    git fetch && git checkout origin $OCTUPUS_CONFIG
     cd ..
 }
 
