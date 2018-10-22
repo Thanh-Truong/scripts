@@ -74,6 +74,7 @@ clean_up(){
     unset OCTUPUS_SH
     unset REPO_FOLDER
     unset OCTUPUS_CONFIG
+    rm -- "$0"
 }
 
 #Removing rubbish upon exit
