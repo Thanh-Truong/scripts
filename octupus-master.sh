@@ -88,7 +88,7 @@ pull_octupus
 pull_repo
 octupus_merge
 REV_FOLDER=$(find $PWD -type d -iname "rev*" -maxdepth 1) && echo $REV_FOLDER
-ln -snf $PWD/$REPO_FOLDER/dev/feature* $REV_FOLDER/dev/
+ln -snf $PWD/$REPO_FOLDER/dev/sample-branch $REV_FOLDER/dev/
 exit 0
 
 
