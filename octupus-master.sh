@@ -7,6 +7,7 @@ SSH_PRIVATE_KEY=/etc/git-secret/ssh
 OCTUPUS_FOLDER=scripts
 OCTUPUS_GIT=git@github.com:Thanh-Truong/scripts.git
 OCTUPUS_SH=octupus-merge.sh
+OCTUPUS_CONFIG=octupus.config
 REPO_FOLDER=octupus-dags
 REPO_GIT=git@github.com:TV4/data-airflow-dags.git
 
@@ -42,6 +43,7 @@ pull_repo() {
     rm -rf $REPO_FOLDER
     clone_repo "$REPO_GIT" "$REPO_FOLDER"    
     mv $OCTUPUS_FOLDER/$OCTUPUS_SH $REPO_FOLDER/$OCTUPUS_SH
+    mv $OCTUPUS_FOLDER/$OCTUPUS_CONFIG $REPO_FOLDER/$OCTUPUS_CONFIG    
 }
 
 octupus_merge() {
@@ -60,6 +62,8 @@ clean_up(){
     #rm -rf $TMPWORKDIR
     echo "Cleaning....."
     rm -rf $OCTUPUS_FOLDER
+    rm $REPO_FOLDER/$OCTUPUS_SH
+    rm $REPO_FOLDER/$OCTUPUS_CONFIG
     unset TMPWORKDIR
     unset ADD_SECRET
     unset GIT_CLONE
@@ -68,6 +72,7 @@ clean_up(){
     unset OCTUPUS_GIT
     unset OCTUPUS_SH
     unset REPO_FOLDER
+    unset OCTUPUS_CONFIG
 }
 
 #Removing rubbish upon exit
